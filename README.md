@@ -1,4 +1,4 @@
-# Geospatial hackathon team project
+# Geospatial hackathon collaboration project
 Flask application with react frontend
 
 ## Prerequisites

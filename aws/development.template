@@ -2,12 +2,17 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: '1904labs Geospatial Hackathon Cloudformation Template'
 Resources:
 
+  ElasticIpv4:
+    Type: AWS::EC2::EIP
+    Properties:
+      InstanceId: !Ref EC2Instance
+
   EC2Instance:
     Type: AWS::EC2::Instance
     Properties:
       InstanceType: m4.xlarge
       ImageId: ami-08b26b905b0d17561
-      KeyName: hackathon
+      KeyName: 1904key
       SecurityGroups:
       - Ref: SshSecurityGroup
       - Ref: AppSecurityGroup
@@ -17,11 +22,33 @@ Resources:
         Fn::Base64: !Sub |
           #!/bin/bash -xe
           yum update -y
-          yum install -y git
-          git clone https://github.com/1904labs/geohack-collab-project.git
-          cd geohack-collab-project
-          docker-compose build
+          yum install -y git ec2-instance-connect
+          mkdir -p /usr/local/bin
+          curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+          chmod +x /usr/local/bin/docker-compose
+          git clone https://github.com/1904labs/geohack-collab-project.git /home/ec2-user/geohack-collab-project
+          usermod -a -G docker ec2-user
+          chown -R ec2-user:docker /home/ec2-user/geohack-collab-project
+          cd /home/ec2-user/geohack-collab-project
           docker-compose up -d
+
+  Ec2ConnectPolicy:
+    Type: 'AWS::IAM::Policy'
+    Properties:
+      PolicyName: Ec2ConnectPolicy
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Effect: Allow
+            Action: ec2-instance-connect:SendSSHPublicKey
+            Resource: !Join 
+            - ':'
+            - - arn:aws:ec2 
+              - !Ref AWS::Region
+              - !Ref AWS::AccountId
+              - instance/*
+      Roles:
+      - OrganizationAccountAccessRole
 
   SshSecurityGroup:
     Type: AWS::EC2::SecurityGroup

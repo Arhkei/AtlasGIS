@@ -27,7 +27,7 @@ services:
         ports:
             - "8081:8080"
         healthcheck:
-            test: ["CMD", "curl", "--fail", "http://geoserver:8080/geoserver/"]
+            test: ["CMD", "curl", "--fail", "http://geoserver:8080/web/"]
             interval: 30s
             timeout: 10s
             retries: 3

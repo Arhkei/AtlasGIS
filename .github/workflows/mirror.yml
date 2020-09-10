@@ -24,11 +24,11 @@ jobs:
         shell: bash
         run: echo "::set-env name=SOURCE_BRANCH::${GITHUB_REF##refs/heads/}"
 
-      - name: Remote branch name
+      - name: Extract branch name
         shell: bash
         run: echo "::set-env name=REMOTE_BRANCH::${GITHUB_REF##refs/heads/mirror-}"
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-0
+      - name: mirror-team-0
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -39,7 +39,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-1
+      - name: mirror-team-1
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -50,7 +50,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-2
+      - name: mirror-team-2
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -61,7 +61,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-3
+      - name: mirror-team-3
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -72,7 +72,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-4
+      - name: mirror-team-4
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -83,7 +83,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-5
+      - name: mirror-team-5
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -94,7 +94,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-6
+      - name: mirror-team-6
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -105,7 +105,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-7
+      - name: mirror-team-7
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -116,7 +116,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-8
+      - name: mirror-team-8
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -127,7 +127,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-9
+      - name: mirror-team-9
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -138,7 +138,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-10
+      - name: mirror-team-10
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -149,7 +149,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-11
+      - name: mirror-team-11
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -160,7 +160,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-12
+      - name: mirror-team-12
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -171,7 +171,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-13
+      - name: mirror-team-13
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -182,7 +182,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-14
+      - name: mirror-team-14
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -193,7 +193,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-15
+      - name: mirror-team-15
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -204,7 +204,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-16
+      - name: mirror-team-16
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -215,7 +215,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-17
+      - name: mirror-team-17
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -226,7 +226,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-18
+      - name: mirror-team-18
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -237,7 +237,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-19
+      - name: mirror-team-19
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
@@ -248,7 +248,7 @@ jobs:
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
-      - name: ${{ env.SOURCE_BRANCH }}-team-20
+      - name: mirror-team-20
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:

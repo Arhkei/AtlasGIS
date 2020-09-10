@@ -1,34 +1,220 @@
-# This is a basic workflow to help you get started with Actions
-
-name: mirror-to-teams
-
-# Controls when the action will run. Triggers the workflow on push or pull request
-# events but only for the master branch
-on:
-  push:
-    branches: [ mirror_to_teams ]
-  pull_request:
-    branches: [ mirror_to_teams ]
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
-jobs:
-  # This workflow contains a single job called "build"
-  build:
-    # The type of runner that the job will run on
-    runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
-    steps:
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
-      - uses: actions/checkout@v1
+      - name: mirror-team-0
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-0.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_0 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
 
       - name: mirror-team-1
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master
         with:
+          SOURCE_BRANCH: mirror-to-teams
           REMOTE: git@github.com:1904labs-geohack/team-1.git
-          SOURCE_BRANCH: master
+          REMOTE_BRANCH: master
           GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_1 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-2
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-2.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_2 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-3
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-3.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_3 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-4
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-4.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_4 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-5
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-5.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_5 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-6
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-6.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_6 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-7
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-7.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_7 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-8
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-8.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_8 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-9
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-9.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_9 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-10
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-10.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_10 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-11
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-11.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_11 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-12
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-12.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_12 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-13
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-13.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_13 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-14
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-14.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_14 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-15
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-15.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_15 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-16
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-16.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_16 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-17
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-17.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_17 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-18
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-18.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_18 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
+      - name: mirror-team-19
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          SOURCE_BRANCH: mirror-to-teams
+          REMOTE: git@github.com:1904labs-geohack/team-19.git
+          REMOTE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_19 }}
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true
 
@@ -38,7 +224,7 @@ jobs:
         with:
           SOURCE_BRANCH: mirror-to-teams
           REMOTE: git@github.com:1904labs-geohack/team-20.git
-          SOURCE_BRANCH: mirror-to-teams
+          REMOTE_BRANCH: master
           GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_20 }}
           GIT_SSH_NO_VERIFY_HOST: true
           DEBUG: true

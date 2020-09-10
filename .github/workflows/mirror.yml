@@ -24,7 +24,7 @@ jobs:
         shell: bash
         run: echo "::set-env name=SOURCE_BRANCH::${GITHUB_REF##refs/heads/}"
 
-      - name: Extract branch name
+      - name: Remote branch name
         shell: bash
         run: echo "::set-env name=REMOTE_BRANCH::${GITHUB_REF##refs/heads/mirror-}"
 

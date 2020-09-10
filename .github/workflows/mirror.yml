@@ -4,9 +4,9 @@ name: mirror-to-teams
 # events but only for the master branch
 on:
   push:
-    branches: [ mirror_to_teams ]
+    branches: [ mirror-to-teams ]
   pull_request:
-    branches: [ mirror_to_teams ]
+    branches: [ mirror-to-teams ]
 
 # A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:

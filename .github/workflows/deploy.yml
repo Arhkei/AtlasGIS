@@ -1,0 +1,47 @@
+name: Deploy To AWS
+
+on:
+  workflow_dispatch:
+
+jobs:
+  cluster:
+    name: Deploy stack to AWS
+    runs-on: ubuntu-latest
+    outputs:
+      env-name: ${{ steps.env-name.outputs.environment }}
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Configure AWS credentials
+      id: creds
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+        aws-region: us-east-1
+
+    - name: Set Team id
+      env:
+        REPO: ${{ github.repository }}
+      run: |
+        TEAM_ID=${REPO##*-}
+        echo "Team number: ${TEAM_ID}"
+        echo "::set-env name=TEAM_ID::${TEAM_ID}"
+
+    #- name: Deploy Amazon EKS Cluster
+      # id: eks-cluster
+      # uses: aws-actions/aws-cloudformation-github-deploy@master
+      # with:
+      #   name: ${{ steps.env-name.outputs.environment }}-cluster
+      #   template: https://s3.amazonaws.com/aws-quickstart/quickstart-amazon-eks/templates/amazon-eks-master.template.yaml
+      #   no-fail-on-empty-changeset: "1"
+      #   parameter-overrides: >-
+      #     AvailabilityZones=${{ github.event.inputs.region }}a,
+      #     AvailabilityZones=${{ github.event.inputs.region }}c,
+      #     KeyPairName=${{ github.event.inputs.keypair }},
+      #     NumberOfAZs=2,
+      #     ProvisionBastionHost=Disabled,
+      #     EKSPublicAccessEndpoint=Enabled,
+      #     EKSPrivateAccessEndpoint=Enabled,
+      #     RemoteAccessCIDR=0.0.0.0/0

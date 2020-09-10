@@ -22,6 +22,16 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v1
 
+      - name: mirror-team-1
+        # You may pin to the exact commit or the version.
+        uses: gregnuj/mirror-action@master
+        with:
+          REMOTE: git@github.com:1904labs-geohack/team-1.git
+          SOURCE_BRANCH: master
+          GIT_SSH_PRIVATE_KEY: ${{ secrets.GIT_SSH_PRIVATE_KEY_1 }}
+          GIT_SSH_NO_VERIFY_HOST: true
+          DEBUG: true
+
       - name: mirror-team-20
         # You may pin to the exact commit or the version.
         uses: gregnuj/mirror-action@master

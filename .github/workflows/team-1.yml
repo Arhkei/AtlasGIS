@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: team-1
+name: mirror-team-1
 
 # Controls when the action will run. Triggers the workflow on push or pull request
 # events but only for the master branch
@@ -22,7 +22,7 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v1
 
-      - name: mirror-team-0
+      - name: mirror-team-1
         # You may pin to the exact commit or the version.
         uses: spyoungtech/mirror-action@master
         with:

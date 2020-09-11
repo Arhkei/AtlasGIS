@@ -1,7 +1,10 @@
 name: Deploy To AWS
 
 on:
-  workflow_dispatch:
+  push:
+    branches: [ deploy ]
+  pull_request:
+    branches: [ deploy ]
 
 jobs:
   cluster:
@@ -9,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v1
 
     - name: Configure AWS credentials
       id: creds
@@ -24,20 +27,18 @@ jobs:
         TEAM_ID=${GITHUB_REPOSITORY##*-}
         echo "Team number: ${TEAM_ID}"
         echo "::set-env name=TEAM_ID::${TEAM_ID}"
-
-    #- name: Deploy Amazon EKS Cluster
-      # id: eks-cluster
-      # uses: aws-actions/aws-cloudformation-github-deploy@master
-      # with:
-      #   name: ${{ steps.env-name.outputs.environment }}-cluster
-      #   template: https://s3.amazonaws.com/aws-quickstart/quickstart-amazon-eks/templates/amazon-eks-master.template.yaml
-      #   no-fail-on-empty-changeset: "1"
-      #   parameter-overrides: >-
-      #     AvailabilityZones=${{ github.event.inputs.region }}a,
-      #     AvailabilityZones=${{ github.event.inputs.region }}c,
-      #     KeyPairName=${{ github.event.inputs.keypair }},
-      #     NumberOfAZs=2,
-      #     ProvisionBastionHost=Disabled,
-      #     EKSPublicAccessEndpoint=Enabled,
-      #     EKSPrivateAccessEndpoint=Enabled,
-      #     RemoteAccessCIDR=0.0.0.0/0
+    
+    - name: Pack Key
+      run: |
+        GSK="${{ secrets.GIT_SSH_PRIVATE_KEY }}"
+        GSK_PACKED=$(echo "$GSK" | base64 -w0)
+        echo "::set-env name=GSK_PACKED::${GSK_PACKED}"
+      
+    - name: Deploy docker-compose stack
+      id: ec2-compose
+      uses: aws-actions/aws-cloudformation-github-deploy@v1
+      with:
+        name: ec2-deploy
+        template: aws/deploy.template
+        no-fail-on-empty-changeset: "1"
+        parameter-overrides: "GITSSHKEY=${{ env.GSK_PACKED }}, GITHUBREPO=${{ github.repository }}"

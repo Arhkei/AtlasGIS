@@ -39,11 +39,12 @@ Resources:
             chmod +x /usr/local/bin/docker-compose
             usermod -a -G docker ec2-user
             mkdir -p /home/ec2-user/.ssh
-            echo "${GIT_SSH_KEY}" > /home/ec2-user/.ssh/id_rsa
+            echo "${GIT_SSH_KEY}" | base64 -d > /home/ec2-user/.ssh/id_rsa
             chmod 600 /home/ec2-user/.ssh/id_rsa
             chown -R ec2-user:ec2-user /home/ec2-user/.ssh
+            sudo -su ec2-user git config --global core.sshCommand "ssh -o StrictHostKeyChecking=no"
             sudo -su ec2-user git clone git@github.com:${GITHUB_REPOSITORY}.git /home/ec2-user/project
-            docker-compose -f /home/ec2-user/project/docker-compose up -d
+            docker-compose -f /home/ec2-user/project/docker-compose.yml up -d
           - GITHUB_REPOSITORY: !Ref GITHUBREPO
             GIT_SSH_KEY: !Ref GITSSHKEY 
 

@@ -7,8 +7,6 @@ jobs:
   cluster:
     name: Deploy stack to AWS
     runs-on: ubuntu-latest
-    outputs:
-      env-name: ${{ steps.env-name.outputs.environment }}
     steps:
     - name: Checkout
       uses: actions/checkout@v2
@@ -22,10 +20,8 @@ jobs:
         aws-region: us-east-1
 
     - name: Set Team id
-      env:
-        REPO: ${{ github.repository }}
       run: |
-        TEAM_ID=${REPO##*-}
+        TEAM_ID=${GITHUB_REPOSITORY##*-}
         echo "Team number: ${TEAM_ID}"
         echo "::set-env name=TEAM_ID::${TEAM_ID}"
 

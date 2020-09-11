@@ -1,7 +1,12 @@
 AWSTemplateFormatVersion: '2010-09-09'
 Description: '1904labs Geospatial Hackathon Cloudformation Template'
-Resources:
 
+Parameters:
+  GITHUB_REPOSITORY: 
+    Description: The owner and repository name. For example, octocat/Hello-World.
+    Type: String
+
+Resources:
   ElasticIpv4:
     Type: AWS::EC2::EIP
     Properties:
@@ -19,18 +24,21 @@ Resources:
       - Ref: GsSecurityGroup
       - Ref: PgSecurityGroup
       UserData:
-        Fn::Base64: !Sub |
-          #!/bin/bash -xe
-          yum update -y
-          yum install -y git ec2-instance-connect
-          mkdir -p /usr/local/bin
-          curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          chmod +x /usr/local/bin/docker-compose
-          git clone https://github.com/1904labs/geohack-collab-project.git /home/ec2-user/geohack-collab-project
-          usermod -a -G docker ec2-user
-          chown -R ec2-user:docker /home/ec2-user/geohack-collab-project
-          cd /home/ec2-user/geohack-collab-project
-          docker-compose up -d
+        Fn::Base64: 
+          Fn::Sub:
+          - |
+            #!/bin/bash -xe
+            yum update -y
+            yum install -y git ec2-instance-connect
+            mkdir -p /usr/local/bin
+            curl -L "https://github.com/docker/compose/releases/download/1.26.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            chmod +x /usr/local/bin/docker-compose
+            git clone https://github.com/1904labs/${GITHUB_REPOSITORY}.git /home/ec2-user/project
+            usermod -a -G docker ec2-user
+            chown -R ec2-user:docker /home/ec2-user/project
+            cd /home/ec2-user/project
+            docker-compose up -d
+          - GITHUB_REPOSITORY: !Ref GITHUB_REPOSITORY 
 
   Ec2ConnectPolicy:
     Type: 'AWS::IAM::Policy'

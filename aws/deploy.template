@@ -2,13 +2,19 @@ AWSTemplateFormatVersion: '2010-09-09'
 Description: '1904labs Geospatial Hackathon Cloudformation Template'
 
 Parameters:
-  GITHUBREPO: 
-    Description: The owner and repository name. For example, octocat/Hello-World.
+  GITHUBREPO:
     Type: String
-  GITSSHKEY: 
+    Description: The owner and repository name. For example, octocat/Hello-World.
+
+  GITBRANCH:
+    Type: String
+    Description: the branch to checkout
+    Default: master
+
+  GITSSHKEY:
+    Type: String
     NoEcho: true
     Description: ssh key for repo.
-    Type: String
 
 Resources:
   ElasticIpv4:
@@ -28,7 +34,7 @@ Resources:
       - Ref: GsSecurityGroup
       - Ref: PgSecurityGroup
       UserData:
-        Fn::Base64: 
+        Fn::Base64:
           Fn::Sub:
           - |
             #!/bin/bash -xe
@@ -42,11 +48,16 @@ Resources:
             echo "${GIT_SSH_KEY}" | base64 -d > /home/ec2-user/.ssh/id_rsa
             chmod 600 /home/ec2-user/.ssh/id_rsa
             chown -R ec2-user:ec2-user /home/ec2-user/.ssh
-            sudo -su ec2-user git config --global core.sshCommand "ssh -o StrictHostKeyChecking=no"
-            sudo -su ec2-user git clone git@github.com:${GITHUB_REPOSITORY}.git /home/ec2-user/project
-            docker-compose -f /home/ec2-user/project/docker-compose.yml up -d
+            sudo -su ec2-user -- <<EOF
+            git config --global core.sshCommand "ssh -o StrictHostKeyChecking=no"
+            git clone git@github.com:${GITHUB_REPOSITORY}.git /home/ec2-user/project
+            cd /home/ec2-user/project
+            git checkout ${GIT_BRANCH}
+            docker-compose up -d
+            EOF
           - GITHUB_REPOSITORY: !Ref GITHUBREPO
-            GIT_SSH_KEY: !Ref GITSSHKEY 
+            GIT_SSH_KEY: !Ref GITSSHKEY
+            GIT_BRANCH: !Ref GITBRANCH
 
   SshSecurityGroup:
     Type: AWS::EC2::SecurityGroup

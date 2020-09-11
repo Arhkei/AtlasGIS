@@ -28,13 +28,19 @@ jobs:
         TEAM_ID=${GITHUB_REPOSITORY##*-}
         echo "Team number: ${TEAM_ID}"
         echo "::set-env name=TEAM_ID::${TEAM_ID}"
-    
+
     - name: Pack Key
       run: |
         GSK="${{ secrets.GIT_SSH_PRIVATE_KEY }}"
         GSK_PACKED=$(echo "$GSK" | base64 -w0)
         echo "::set-env name=GSK_PACKED::${GSK_PACKED}"
-      
+
+    - name: Get branch from ref
+      run: |
+        REF="${{ github.ref }}"
+        GIT_BRANCH=$(basename $REF)
+        echo "::set-env name=GIT_BRANCH::${GIT_BRANCH}"
+
     - name: Deploy docker-compose stack
       id: ec2-compose
       uses: aws-actions/aws-cloudformation-github-deploy@v1
@@ -42,4 +48,7 @@ jobs:
         name: ec2-deploy
         template: aws/deploy.template
         no-fail-on-empty-changeset: "1"
-        parameter-overrides: "GITSSHKEY=${{ env.GSK_PACKED }}, GITHUBREPO=${{ github.repository }}"
+        parameter-overrides: >-
+          GITHUBREPO=${{ github.repository }}",
+          GITBRANCH=${{ env.GIT_BRANCH }}
+          GITSSHKEY=${{ env.GSK_PACKED }},

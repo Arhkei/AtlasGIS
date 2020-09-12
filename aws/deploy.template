@@ -19,7 +19,7 @@ Parameters:
 Resources:
   ElasticIpv4:
     Type: AWS::EC2::EIP
-    Properties:
+  #   Properties:
   #     InstanceId: !Ref EC2Instance
 
   # EC2Instance:

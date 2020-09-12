@@ -34,6 +34,7 @@ jobs:
         GSK="${{ secrets.GIT_SSH_PRIVATE_KEY }}"
         GSK_PACKED=$(echo "$GSK" | base64 -w0)
         echo "::set-env name=GSK_PACKED::${GSK_PACKED}"
+        echo "::add-mask::${GSK_PACKED}"
 
     - name: Get branch from ref
       run: |

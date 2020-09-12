@@ -49,6 +49,6 @@ jobs:
         template: aws/deploy.template
         no-fail-on-empty-changeset: "1"
         parameter-overrides: >-
-          GITHUBREPO=${{ github.repository }}",
-          GITBRANCH=${{ env.GIT_BRANCH }}
-          GITSSHKEY=${{ env.GSK_PACKED }},
+          GITHUBREPO=${{ github.repository }},
+          GITBRANCH=${{ env.GIT_BRANCH }},
+          GITSSHKEY=${{ env.GSK_PACKED }}

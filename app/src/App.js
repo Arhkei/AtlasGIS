@@ -14,7 +14,7 @@ const App = () => {
         <TopNav/>
         <Switch>
           <Route exact path="/" ><MapView /></Route>
-          <Route path="/form"><LocationForm /></Route>
+          <Route path="/add"><LocationForm /></Route>
         </Switch>
     </Router>
   );

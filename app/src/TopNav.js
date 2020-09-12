@@ -14,11 +14,10 @@ class TopNav extends React.Component {
     render(){
         return (
             <Navbar sticky="top" variant="dark">
-                <Navbar.Brand href= "/" >F2C</Navbar.Brand>
+                <Navbar.Brand href= "/" >Geohack</Navbar.Brand>
                 <Nav className="mr-auto">
                     <Nav.Link href="/">View Map</Nav.Link>
-                    <Nav.Link href="#list">View List</Nav.Link>
-                    <Nav.Link href="#sell">Sell Item</Nav.Link>
+                    <Nav.Link href="#add">Add Feature</Nav.Link>
                 </Nav>
                 <Form inline>
                     <FormControl type="text" placeholder="Search" className="mr-sm-2" />

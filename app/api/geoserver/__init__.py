@@ -1,29 +1,62 @@
-import os
 import json
 import requests
 from app.api import api_bp
-from flask import jsonify, request, abort, current_app
+from flask import jsonify, request, abort, current_app as app
 from .logger import logger
 from .gs import Geoserver
 
 
 # define geoserver api
-gs_url = os.environ.get('GEOSERVER_URL', "http://localhost:8081")
-gs_username = os.environ.get('GEOSERVER_ADMIN_USER', "admin")
-gs_password = os.environ.get('GEOSERVER_ADMIN_PASSWORD', "geoserver")
+gs_url = app.config.get('GEOSERVER_URL', "http://127.0.0.1:8080")
+gs_username = app.config.get('GEOSERVER_ADMIN_USER', "admin")
+gs_password = app.config.get('GEOSERVER_ADMIN_PASSWORD', "geoserver")
 geoserver_api = Geoserver(gs_url, gs_username, gs_password)
 
 # define geoserver workspaces api
-gs_workspace = os.environ.get('GEOSERVER_WORKSPACE', "default")
+gs_workspace = app.config.get('GEOSERVER_WORKSPACE', "default")
 workspace_api = geoserver_api.workspace(gs_workspace)
 
 # define geoserver workspaces datastore api
-pg_database = os.environ.get('POSTGRES_DB', "gis")
-pg_host = os.environ.get('POSTGRES_HOST', "localhost")
-pg_port = os.environ.get('POSTGRES_PORT', 5432)
-pg_user = os.environ.get('POSTGRES_USER', "gis")
-pg_pwd = os.environ.get('POSTGRES_PASS', "postgres")
+pg_database = app.config.get('POSTGRES_DB', "gis")
+pg_host = app.config.get('POSTGRES_HOST', "localhost")
+pg_port = app.config.get('POSTGRES_PORT', 5432)
+pg_user = app.config.get('POSTGRES_USER', "gis")
+pg_pwd = app.config.get('POSTGRES_PASSWORD', "postgres")
 datastore_api = workspace_api.pg_datastore(pg_database, pg_host, pg_port, pg_user, pg_pwd)
+
+ft_name = 'points'
+featuretype_api = datastore_api.featuretype(name=ft_name, data={
+    "featureType": {
+        "name": ft_name,
+        "nativeName": ft_name,
+        "title": "feature",
+        "abstract": "feature",
+        "projectionPolicy": "FORCE_DECLARED",
+        "enabled": True,
+        "srs": "EPSG:4326",
+        "maxFeatures": 0,
+        "numDecimals": 0,
+        "keywords": {
+            "string": [
+                ft_name
+            ]
+        },
+        "latLonBoundingBox": {
+            "minx": -90,
+            "maxx": 90,
+            "miny": -180,
+            "maxy": 180,
+            "crs": "EPSG:4326"
+        },
+        "nativeBoundingBox": {
+            "minx": -90,
+            "maxx": 90,
+            "miny": -180,
+            "maxy": 180,
+            "crs": "EPSG:4326"
+        }
+    }
+})
 
 
 @api_bp.route('/ext', methods=['GET'])
@@ -57,6 +90,17 @@ def get_states():
     }
     response = requests.get(endpt, params=params)
     return response.json()
+
+
+@api_bp.route(
+    f'/geoserver/rest/workspaces/{gs_workspace}/datastores/{pg_database}/featuretypes/{ft_name}', methods=['GET'])
+@api_bp.route(
+    f'/geoserver/rest/workspaces/{gs_workspace}/datastores/{pg_database}/featuretypes/{ft_name}/<path:path>', methods=['GET'])
+def get_featuretype_proxy(path: str = '') -> str:
+    try:
+        return featuretype_api.get(path).json()
+    except json.JSONDecodeError:
+        return abort(400)
 
 
 @api_bp.route(

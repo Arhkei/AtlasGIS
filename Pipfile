@@ -12,6 +12,8 @@ webpack-manifest = "*"
 flask-restx = "*"
 gunicorn = "*"
 requests = "*"
+flask-sqlalchemy = "*"
+flask-migrate = "*"
 
 [dev-packages]
 pip = "*"

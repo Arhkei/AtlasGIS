@@ -2,9 +2,10 @@ import json
 import requests
 from app.api import api_bp
 from flask import jsonify, request, abort, current_app as app
-from .logger import logger
 from .gs import Geoserver
+from werkzeug.local import LocalProxy
 
+logger = LocalProxy(lambda: app.logger)
 
 # define geoserver api
 gs_url = app.config.get('GEOSERVER_URL', "http://127.0.0.1:8080")
@@ -27,15 +28,29 @@ datastore_api = workspace_api.pg_datastore(pg_database, pg_host, pg_port, pg_use
 ft_name = 'points'
 featuretype_api = datastore_api.featuretype(name=ft_name, data={
     "featureType": {
+        "circularArcPresent": False,
+        "enabled": True,
+        "forcedDecimal": False,
+        "maxFeatures": 0,
         "name": ft_name,
         "nativeName": ft_name,
-        "title": "feature",
-        "abstract": "feature",
-        "projectionPolicy": "FORCE_DECLARED",
-        "enabled": True,
-        "srs": "EPSG:4326",
-        "maxFeatures": 0,
         "numDecimals": 0,
+        "overridingServiceSRS": False,
+        "padWithZeros": False,
+        "projectionPolicy": "FORCE_DECLARED",
+        "serviceConfiguration": False,
+        "skipNumberMatched": False,
+        "srs": "EPSG:404000",
+        "title": ft_name,
+        "attributes": {
+            "attribute": {
+                "binding": "java.lang.String",
+                "maxOccurs": 1,
+                "minOccurs": 0,
+                "name": "point",
+                "nillable": True
+            }
+        },
         "keywords": {
             "string": [
                 ft_name
@@ -54,7 +69,7 @@ featuretype_api = datastore_api.featuretype(name=ft_name, data={
             "miny": -180,
             "maxy": 180,
             "crs": "EPSG:4326"
-        }
+        },
     }
 })
 
@@ -95,37 +110,58 @@ def get_states():
 @api_bp.route(
     f'/geoserver/rest/workspaces/{gs_workspace}/datastores/{pg_database}/featuretypes/{ft_name}', methods=['GET'])
 @api_bp.route(
+    f'/geoserver/rest/workspaces/{gs_workspace}/datastores/{pg_database}/featuretypes/{ft_name}.json', methods=['GET'])
+@api_bp.route(
     f'/geoserver/rest/workspaces/{gs_workspace}/datastores/{pg_database}/featuretypes/{ft_name}/<path:path>', methods=['GET'])
 def get_featuretype_proxy(path: str = '') -> str:
+    response = featuretype_api.get(path)
     try:
-        return featuretype_api.get(path).json()
+        return response.json()
     except json.JSONDecodeError:
-        return abort(400)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return abort(400)
 
 
 @api_bp.route(
     f'/geoserver/rest/workspaces/{gs_workspace}/datastores/{pg_database}', methods=['GET'])
+@api_bp.route(
+    f'/geoserver/rest/workspaces/{gs_workspace}/datastores/{pg_database}.json', methods=['GET'])
 @api_bp.route(f'/geoserver/rest/workspaces/{gs_workspace}/datastores/{pg_database}/<path:path>', methods=['GET'])
 def get_datastore_proxy(path: str = '') -> str:
+    response = datastore_api.get(path)
     try:
-        return datastore_api.get(path).json()
+        return response.json()
     except json.JSONDecodeError:
-        return abort(400)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return abort(400)
 
 
 @api_bp.route(f'/geoserver/rest/workspaces/{gs_workspace}', methods=['GET'])
+@api_bp.route(f'/geoserver/rest/workspaces/{gs_workspace}.json', methods=['GET'])
 @api_bp.route(f'/geoserver/rest/workspaces/{gs_workspace}/<path:path>', methods=['GET'])
 def get_workspace_proxy(path: str = '') -> str:
+    response = workspace_api.get(path)
     try:
-        return workspace_api.get(path).json()
+        return response.json()
     except json.JSONDecodeError:
-        return abort(400)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return abort(400)
 
 
 @api_bp.route('/geoserver/rest', methods=['GET'])
 @api_bp.route('/geoserver/rest/<path:path>', methods=['GET'])
 def get_geoserver_proxy(path: str = '') -> str:
+    response = geoserver_api.get(path)
     try:
-        return geoserver_api.get(path).json()
+        return response.json()
     except json.JSONDecodeError:
-        return abort(400)
+        if response.status_code == 200:
+            return response.text
+        else:
+            return abort(400)

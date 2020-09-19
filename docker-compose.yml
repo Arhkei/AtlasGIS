@@ -35,17 +35,13 @@ services:
     webapp:
         image: local/geohack-team-project:latest
         # uncomment to use development server in container
-        command: ["flask", "run", "--debugger", "--reload", "--host=0.0.0.0", "--port=8000"]
+        # command: ["flask", "run", "--debugger", "--reload", "--host=0.0.0.0", "--port=8000"]
         environment:
             - GEOSERVER_URL=http://geoserver:8080
             - GEOSERVER_WORKSPACE=geohack
             - GEOSERVER_ADMIN_USER=admin
             - GEOSERVER_ADMIN_PASSWORD=1904geohack!
-            - POSTGRES_HOST=postgis
-            - POSTGRES_PORT=5432
-            - POSTGRES_DB=gis
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=1904geohack!
+            - POSTGRES_URI=postgres://postgres:1904geohack!@postgis:5432/gis
         build:
             context: .
         ports:

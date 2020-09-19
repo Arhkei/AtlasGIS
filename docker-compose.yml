@@ -41,11 +41,7 @@ services:
             - GEOSERVER_WORKSPACE=geohack
             - GEOSERVER_ADMIN_USER=admin
             - GEOSERVER_ADMIN_PASSWORD=1904geohack!
-            - POSTGRES_HOST=postgis
-            - POSTGRES_PORT=5432
-            - POSTGRES_DB=gis
-            - POSTGRES_USER=postgres
-            - POSTGRES_PASSWORD=1904geohack!
+            - POSTGRES_URI=postgres://postgres:1904geohack!@postgis:5432/gis
         build:
             context: .
         ports:

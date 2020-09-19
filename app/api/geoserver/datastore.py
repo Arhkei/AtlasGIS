@@ -1,5 +1,5 @@
 from typing import Dict
-from . import logger
+from .logger import logger
 from .endpoint import GeoserverEndpt
 from .featuretype import GeoserverFeatureType
 

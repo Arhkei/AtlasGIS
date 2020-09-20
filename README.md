@@ -2,6 +2,8 @@
 
 Built with HERE maps 
 
+![AtlasGIS](images/AtlasGIS.png?raw=true)
+
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install requirements.

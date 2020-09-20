@@ -1,4 +1,4 @@
-# Covid Maps
+# AtlasGIS
 
 Built with HERE maps 
 

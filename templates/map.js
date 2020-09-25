@@ -271,7 +271,7 @@ function addCircleToMap(map){
 
 
 var platform = new H.service.Platform({
-  apikey: 'Kii-rwhuWDDXyJJfNfRaUxMC_7Es2INoPqVu8Ezk09c'
+  apikey: //key
 });
      
 var defaultLayers = platform.createDefaultLayers();

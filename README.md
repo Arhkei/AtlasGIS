@@ -4,6 +4,8 @@ Built with HERE maps
 
 ![AtlasGIS](images/AtlasGIS.png?raw=true)
 
+AtlasGIS compares keyword frequency in tweets to Covid-19 cases in the United States in order to predict disruptive events, impeding their negative impact.
+
 ## Installation
 
 Use the package manager [pip](https://pip.pypa.io/en/stable/) to install requirements.

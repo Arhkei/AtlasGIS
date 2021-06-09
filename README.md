@@ -20,6 +20,8 @@ pip install -r requirements.txt
 python initialize.py
 ```
 
+Keyword to search can be changed from the main.py file
+
 ## Contributing
 Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
 

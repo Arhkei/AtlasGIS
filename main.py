@@ -7,17 +7,17 @@ def map_func():
     data = []
     keyword = "vaccine"
     
-    tweetText = open("data/tweetText.txt", "r", encoding="utf-8")
+    tweetText = open("data/tweet_contents.txt", "r", encoding="utf-8")
     textData = tweetText.read()
     tweetText.close()
     data.append(textData)
     
-    covidFile = open("data/covid.txt", "r")
+    covidFile = open("data/covid_cases.txt", "r")
     covidData = covidFile.read()
     covidFile.close()
     data.append(covidData)
     
-    tweetFile = open("data/covid-tweets.txt", "r")
+    tweetFile = open("data/covid_tweets.txt", "r")
     tweetData = tweetFile.read()
     tweetFile.close()
     data.append(tweetData)
@@ -26,4 +26,4 @@ def map_func():
     return render_template('map.html', data=data)
 
 if __name__ == '__main__':
-    app.run(debug = True) 
+    app.run(debug = True)
